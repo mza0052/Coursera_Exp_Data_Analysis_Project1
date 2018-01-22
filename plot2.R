@@ -1,0 +1,10 @@
+setwd("C:/Users/mza0052/Desktop/Coursera/Exp_Ana")
+hpctable <- read.table("household_power_consumption.txt", header=TRUE, sep=";", na.strings = "?")
+hpctable$Date <- as.Date(hpctable$Date, "%d/%m/%Y")
+hpctable  <- hpctable [complete.cases(hpctable ),]
+hpctable <- subset(hpctable,Date >= as.Date("2007-02-01") & Date <= as.Date("2007-02-02"))
+hpctable$Date<- paste(hpctable$Date, hpctable$Time)
+hpctable$Date <- as.POSIXct(hpctable$Date)
+plot(hpctable$Global_active_power~hpctable$Date, type="l", ylab="Global Active Power (kilowatts)", xlab="")
+dev.copy(png,"plot2.png", width=480, height=480)
+dev.off()
